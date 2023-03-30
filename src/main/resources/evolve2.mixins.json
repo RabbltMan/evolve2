@@ -1,0 +1,22 @@
+{
+  "required": true,
+  "package": "com.rabbltman.evolve2.mixin",
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "CreeperMixin",
+    "CreeperTargetMixin",
+    "DragonMixin",
+    "DrownedMixin",
+    "SkeletonAttackMixin",
+    "SkeletonMixin",
+    "SkeletonTargetMixin",
+    "WitherBossMixin",
+    "ZombieMixin",
+    "ZombieMixin2",
+    "ZombiePiglinMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "evolve2",
+  "version": "${version}",
+  "name": "evolve2",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/evolve2/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "com.rabbltman.evolve2.client.Evolve2Client"
+    ],
+    "main": [
+      "com.rabbltman.evolve2.Evolve2"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.17",
+    "minecraft": "1.19.3"
+  },
+  "mixins": [
+    "evolve2.mixins.json"
+  ]
+}
