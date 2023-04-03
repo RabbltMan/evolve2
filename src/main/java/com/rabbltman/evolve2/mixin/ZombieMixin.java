@@ -3,23 +3,22 @@ package com.rabbltman.evolve2.mixin;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.ZombieEntity;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -33,20 +32,23 @@ public abstract class ZombieMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @ModifyConstant(method = "createZombieAttributes", constant = @Constant(doubleValue = 35.0))
-    private static double range(double x) {
-        return 80.0;
+    /**
+     * @author RabbltMan
+     * @reason Zombie
+     */
+    @Overwrite
+    public static DefaultAttributeContainer.Builder createZombieAttributes() {
+        return HostileEntity.createHostileAttributes()
+                .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 52.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0)
+                .add(EntityAttributes.GENERIC_ARMOR, 8.0)
+                .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
+                .add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 4.0)
+                .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0);
     }
 
-    @ModifyConstant(method = "createZombieAttributes", constant = @Constant(doubleValue = 2.0))
-    private static double defence(double x) {
-        return 5.0;
-    }
-
-    @ModifyConstant(method = "createZombieAttributes", constant = @Constant(doubleValue = 3.0))
-    private static double attack(double x) {
-        return 4.5;
-    }
 
     @Inject(at = @At("HEAD"), method = "onKilledOther")
     public void mixinKillBuff(ServerWorld world, LivingEntity other, CallbackInfoReturnable<Boolean> cir) {
@@ -63,8 +65,8 @@ public abstract class ZombieMixin extends LivingEntity {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 999999, extraHP,false, false));
         }
         if (random.nextFloat() < (this.world.getDifficulty() == Difficulty.HARD ? 0.4F : 0.25F)) {
-            int i = random.nextInt(8);
-            int j = random.nextInt(5);
+            int i = random.nextInt(10);
+            int j = random.nextInt(10);
             int amp = random.nextInt(4);
             if (i == 0) {
                 this.equipStack(EquipmentSlot.MAINHAND, new ItemStack(Items.IRON_AXE));

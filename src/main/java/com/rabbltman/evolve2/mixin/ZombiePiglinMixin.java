@@ -4,17 +4,19 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.attribute.DefaultAttributeContainer;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
+import net.minecraft.entity.mob.ZombieEntity;
 import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ZombifiedPiglinEntity.class)
@@ -23,9 +25,16 @@ public abstract class ZombiePiglinMixin extends LivingEntity {
         super(entityType, world);
     }
 
-    @ModifyConstant(method = "createZombifiedPiglinAttributes", constant = @Constant(doubleValue = 5.0))
-    private static double attack(double x) {
-        return 2.0;
+    /**
+     * @author RabbltMan
+     * @reason ZombiePiglin
+     */
+    @Overwrite
+    public static DefaultAttributeContainer.Builder createZombifiedPiglinAttributes() {
+        return ZombieEntity.createZombieAttributes().add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS, 0.0)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 24.0)
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 2.0);
     }
 
     @Inject(at = @At("HEAD"), method = "initEquipment", cancellable = true)

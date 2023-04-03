@@ -4,6 +4,7 @@
   "minVersion": "0.8",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BowEnchantmentsForCrossbowsMixin",
     "CreeperMixin",
     "CreeperTargetMixin",
     "DragonMixin",
@@ -12,6 +13,10 @@
     "EnchantMixin2",
     "EnchantMixin3",
     "EnchantMixin4",
+    "EnchantMixin5",
+    "EnchantMixin6",
+    "EnchantMixin7",
+    "EnchantMixin8",
     "SkeletonAttackMixin",
     "SkeletonMixin",
     "SkeletonTargetMixin",
