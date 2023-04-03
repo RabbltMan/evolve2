@@ -46,11 +46,16 @@ public abstract class EnchantMixin8 extends Enchantment {
             if (this.typeIndex == 2 && level > 0 && livingEntity.getGroup() == EntityGroup.ARTHROPOD) {
                 int i = 20 + user.getRandom().nextInt(10 * level);
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, i, 3));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, i, 3));
             }
             if (this.typeIndex == 1 && level > 0 && livingEntity.getGroup() == EntityGroup.UNDEAD) {
                 int i = 20 + user.getRandom().nextInt(10 * level);
                 livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.WEAKNESS, i, 3));
-                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, i, 5));
+                livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOWNESS, i, 3));
+                int critical = user.getRandom().nextInt(level);
+                if (critical > 3) {
+                    livingEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, i, -3));
+                }
             }
         }
     }

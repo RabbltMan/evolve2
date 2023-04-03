@@ -12,6 +12,6 @@ public abstract class EnchantMixin2 {
 
     @Inject(at = @At("RETURN"), method = "getAttackDamage", cancellable = true)
     public void getAttackDamageMixin(int level, EntityGroup group, CallbackInfoReturnable<Float> cir) {
-        cir.setReturnValue(group == EntityGroup.AQUATIC ? (float)level * 2.5F : (float)level * 1.75F);
+        cir.setReturnValue(group == EntityGroup.AQUATIC ? (float)level * 2.5F : (float)level * 1.5F);
     }
 }

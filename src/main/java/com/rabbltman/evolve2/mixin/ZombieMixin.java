@@ -40,9 +40,9 @@ public abstract class ZombieMixin extends LivingEntity {
     public static DefaultAttributeContainer.Builder createZombieAttributes() {
         return HostileEntity.createHostileAttributes()
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 52.0)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.18)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.25)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 6.0)
-                .add(EntityAttributes.GENERIC_ARMOR, 8.0)
+                .add(EntityAttributes.GENERIC_ARMOR, 9.0)
                 .add(EntityAttributes.ZOMBIE_SPAWN_REINFORCEMENTS)
                 .add(EntityAttributes.GENERIC_ARMOR_TOUGHNESS, 4.0)
                 .add(EntityAttributes.GENERIC_KNOCKBACK_RESISTANCE, 0.2)
